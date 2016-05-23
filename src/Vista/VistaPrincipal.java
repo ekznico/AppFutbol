@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -23,7 +24,7 @@ public class VistaPrincipal extends JFrame {
     
     private static JPanel pnlPrincipal;
     private static JTextField txtUsuario;
-    private static JTextField txtPassword;
+    private static JPasswordField txtPassword;
     private static JLabel lblUsuario;
     private static JLabel lblPassword;
     private static JButton btnRegistro;
@@ -40,7 +41,7 @@ public class VistaPrincipal extends JFrame {
         lblUsuario = new JLabel("Usuario: ");
         lblPassword = new JLabel("Contraseña: ");
         txtUsuario = new JTextField();
-        txtPassword = new JTextField();
+        txtPassword = new JPasswordField();
         btnRegistro = new JButton("¿No tienes cuenta?");
         btnLogin = new JButton("Iniciar sesión");
 
@@ -48,7 +49,7 @@ public class VistaPrincipal extends JFrame {
         pnlPrincipal.add(txtUsuario);
         pnlPrincipal.add(lblPassword);
         pnlPrincipal.add(txtPassword);
-        //pnlPrincipal.add(btnRegistro);
+        pnlPrincipal.add(btnRegistro);
         pnlPrincipal.add(btnLogin);
         this.add(pnlPrincipal);
         
