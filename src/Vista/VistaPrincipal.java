@@ -6,9 +6,11 @@
 package Vista;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -46,11 +48,28 @@ public class VistaPrincipal extends JFrame {
         pnlPrincipal.add(txtUsuario);
         pnlPrincipal.add(lblPassword);
         pnlPrincipal.add(txtPassword);
-        pnlPrincipal.add(btnRegistro);
+        //pnlPrincipal.add(btnRegistro);
         pnlPrincipal.add(btnLogin);
         this.add(pnlPrincipal);
         
         this.setVisible(true);
+    }
+    
+    public String getUsuario() {
+        return txtUsuario.getText();
+    }
+    
+    public String getPassword() {
+        return txtPassword.getText();
+    }
+    
+    public void addVistaBDListener(ActionListener listenBoton) {
+        btnRegistro.addActionListener(listenBoton);
+        btnLogin.addActionListener(listenBoton);
+    }
+
+    public void mostrarErrores(String mensajeError) {
+        JOptionPane.showMessageDialog(this, mensajeError);
     }
     
 }
