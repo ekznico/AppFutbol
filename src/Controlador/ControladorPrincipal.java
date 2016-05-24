@@ -7,7 +7,9 @@ package Controlador;
 
 import Modelo.ModeloConexionBD;
 import Modelo.ModeloLogin;
+import Modelo.ModeloRegistro;
 import Vista.VistaPrincipal;
+import Vista.VistaRegistro;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -19,44 +21,78 @@ import java.util.logging.Logger;
  * @author Nico
  */
 public class ControladorPrincipal {
-    
+
     private VistaPrincipal vistaPr;
+    private VistaRegistro vistaReg;
     private ModeloConexionBD modeloBD;
     private ModeloLogin modeloLogin;
-    
-    public ControladorPrincipal(VistaPrincipal vistaPr, ModeloConexionBD modeloBD, ModeloLogin modeloLogin) throws SQLException, ClassNotFoundException {
+    private ModeloRegistro modeloReg;
+
+    public ControladorPrincipal(VistaPrincipal vistaPr, VistaRegistro vistaReg,
+            ModeloConexionBD modeloBD, ModeloLogin modeloLogin, ModeloRegistro modeloReg) throws SQLException, ClassNotFoundException {
         this.modeloBD = modeloBD;
         this.modeloBD.abrirConexion();
         this.modeloLogin = modeloLogin;
+        this.modeloReg = modeloReg;
         this.vistaPr = vistaPr;
         this.vistaPr.addVistaBDListener((ActionListener) new VistaPrincipalListener());
+        this.vistaReg = vistaReg;
+        this.vistaReg.addVistaRegistroListener((ActionListener) new VistaReglListener());
     }
-    
+
     public class VistaPrincipalListener implements ActionListener {
 
         String usuario;
         String password;
-        
+
         public void actionPerformed(ActionEvent ae) {
-            usuario = vistaPr.getUsuario();
-            System.out.println(usuario);
-            password = vistaPr.getPassword();
-            System.out.println(password);
-            try {
-                modeloLogin.verificarLogin(usuario, password);
-                if(modeloLogin.getContactoCorrecto()) {
-                    vistaPr.setVisible(false);
-                    System.out.println("CORRECTO");
-                } else {
-                    vistaPr.mostrarErrores("¡ERROR!, no existe el contacto");
+            if (ae.getActionCommand().equals("Iniciar sesión")) {
+                usuario = vistaPr.getUsuario();
+                password = vistaPr.getPassword();
+                try {
+                    modeloLogin.verificarLogin(usuario, password);
+                    if (modeloLogin.getContactoCorrecto()) {
+                        vistaPr.setVisible(false);
+                    } else {
+                        vistaPr.mostrarErrores("¡ERROR!, no existe el contacto");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                vistaReg.setVisible(true);
             }
         }
 
     }
-    
+
+    public class VistaReglListener implements ActionListener {
+
+        String usuario;
+        String password;
+
+        public void actionPerformed(ActionEvent ae) {
+            if (ae.getActionCommand().equals("Registrarse")) {
+                usuario = vistaReg.getUsuario();
+                password = vistaReg.getPassword();
+                try {
+                    modeloReg.verificarRegistro(usuario, password);
+                    System.out.println(modeloReg.getRegistroCorrecto());
+                    if (modeloReg.getRegistroCorrecto()) {
+                        modeloReg.registrar(usuario, password);
+                        vistaReg.setVisible(false);
+                    } else {
+                        modeloReg.setRegistroCorrecto(true);
+                        vistaPr.mostrarErrores("¡ERROR!, ya existe un contacto este nombre");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 }

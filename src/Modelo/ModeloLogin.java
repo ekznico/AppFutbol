@@ -18,20 +18,18 @@ public class ModeloLogin {
     private Usuario user;
     
     public void verificarLogin(String usuario, String password) throws SQLException, ClassNotFoundException {
-        System.out.println("HOLA");
+        System.out.println("LOGIN");
         ModeloConexionBD modeloBD = new ModeloConexionBD();
         ResultSet rs = null;
         if (modeloBD.abrirConexion()) {
             System.out.println("Conectado");
             String sentenciaSQL = "SELECT * FROM users;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
-            int i = 0;
             while (rs.next()) {
                 if (((rs.getString(1)).equals(usuario) & ((rs.getString(2)).equals(password)))) {
                     user = new Usuario(rs.getString(1), rs.getString(2), rs.getBoolean(3));
                     usuarioCorrecto = true;
                 }
-                i++;
             }
         }
     }

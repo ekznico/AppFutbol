@@ -8,7 +8,9 @@ package Main;
 import Controlador.ControladorPrincipal;
 import Modelo.ModeloConexionBD;
 import Modelo.ModeloLogin;
+import Modelo.ModeloRegistro;
 import Vista.VistaPrincipal;
+import Vista.VistaRegistro;
 import java.sql.SQLException;
 
 /**
@@ -20,9 +22,11 @@ public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         
         VistaPrincipal vistaPr = new VistaPrincipal();
+        VistaRegistro vistaReg = new VistaRegistro();
         ModeloConexionBD modeloBD = new ModeloConexionBD();
         ModeloLogin modeloLogin = new ModeloLogin();
-        ControladorPrincipal cp = new ControladorPrincipal(vistaPr, modeloBD, modeloLogin);
+        ModeloRegistro modeloReg = new ModeloRegistro();
+        ControladorPrincipal cp = new ControladorPrincipal(vistaPr, vistaReg, modeloBD, modeloLogin, modeloReg);
         
     }
     
