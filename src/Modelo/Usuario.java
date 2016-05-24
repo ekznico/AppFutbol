@@ -49,6 +49,13 @@ public class Usuario {
         this.password = password;
     }
 
+    /**
+     * @return the administrador
+     */
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
     
     
 }

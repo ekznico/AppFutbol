@@ -8,8 +8,11 @@ package Controlador;
 import Modelo.ModeloConexionBD;
 import Modelo.ModeloLogin;
 import Modelo.ModeloRegistro;
+import Vista.VistaAdmin;
+import Vista.VistaBase;
 import Vista.VistaPrincipal;
 import Vista.VistaRegistro;
+import Vista.VistaUser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -53,6 +56,14 @@ public class ControladorPrincipal {
                     modeloLogin.verificarLogin(usuario, password);
                     if (modeloLogin.getContactoCorrecto()) {
                         vistaPr.setVisible(false);
+                        System.out.println("Bienvenido " + usuario);
+                        if (modeloLogin.getUsuario().isAdministrador()) {
+                            VistaAdmin vistaAd = new VistaAdmin();
+                            ControladorAdmin controladorAd = new ControladorAdmin(vistaAd, modeloBD);
+                        } else {
+                            VistaUser vistaUs = new VistaUser();
+                            ControladorUser controladorAd = new ControladorUser(vistaUs, modeloBD);
+                        }
                     } else {
                         vistaPr.mostrarErrores("¡ERROR!, no existe el contacto");
                     }

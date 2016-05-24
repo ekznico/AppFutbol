@@ -61,6 +61,15 @@ public class ModeloConexionBD {
         return rs;
     }
     
+    public void executeQuery(String sentenciaSQL) {
+        try {
+            Statement st = conexion.createStatement();
+            st.execute(sentenciaSQL);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     public String[] devolverStringResultSet(String sentenciaSQL) throws SQLException {
         String cadena = "";
         ResultSet rs = ejecutaQuery(sentenciaSQL);

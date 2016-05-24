@@ -26,7 +26,7 @@ public class ModeloRegistro {
             String sentenciaSQL = "SELECT * FROM users;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
             while (rs.next()) {
-                if ((rs.getString(1)).equals(usuario)) {
+                if ((rs.getString(1)).equals(usuario)/*||!(password.matches("([A-Z]*)([a-z]{2})[_-](\\d{2})[&]"))*/) {
                     setRegistroCorrecto(false);
                 }
             }
@@ -36,16 +36,10 @@ public class ModeloRegistro {
     public void registrar(String usuario, String password) throws SQLException, ClassNotFoundException {
         System.out.println("REGISTRO");
         ModeloConexionBD modeloBD = new ModeloConexionBD();
-        ResultSet rs = null;
         if (modeloBD.abrirConexion()) {
             System.out.println("Conectado");
-            String sentenciaSQL = "SELECT * FROM users;";
-            rs = modeloBD.ejecutaQuery(sentenciaSQL);
-            while (rs.next()) {
-                if ((rs.getString(1)).equals(usuario)) {
-                    setRegistroCorrecto(false);
-                }
-            }
+            String sentenciaSQL = "INSERT INTO users VALUES ('" + usuario + "', '" + password + "', false)";
+            modeloBD.executeQuery(sentenciaSQL);
         }
     }
     
