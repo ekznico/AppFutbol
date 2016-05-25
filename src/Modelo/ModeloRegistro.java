@@ -26,7 +26,7 @@ public class ModeloRegistro {
             String sentenciaSQL = "SELECT * FROM users;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
             while (rs.next()) {
-                if ((rs.getString(1)).equals(usuario)/*||!(password.matches("([A-Z]*)([a-z]{2})[_-](\\d{2})[&]"))*/) {
+                if ((rs.getString(1)).equals(usuario)||!(password.matches("([A-Z]*)([a-z]{2})[._-](\\d{2,})[$]"))) {
                     setRegistroCorrecto(false);
                 }
             }

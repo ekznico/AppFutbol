@@ -32,11 +32,17 @@ public class ControladorUser {
     public class VistaUserListener implements ActionListener {
 
         public void actionPerformed(ActionEvent ae) {
-            if (ae.getActionCommand().equals("Crear Equipo")) {
-                System.out.println("ESEEE PELAAAO");
-            }
+            comportamientoBotones(ae);
         }
 
+    }
+    
+    public void comportamientoBotones(ActionEvent ae) {
+        switch (ae.getActionCommand()) {
+            case "Crear Equipo":
+                System.out.println("ESE PELAO");
+                break;
+        }
     }
     
 }

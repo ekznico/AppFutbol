@@ -5,10 +5,14 @@
  */
 package Controlador;
 
+import Modelo.ModeloAdminEquipo;
+import Modelo.ModeloAdminLiga;
 import Modelo.ModeloConexionBD;
 import Modelo.ModeloLogin;
 import Modelo.ModeloRegistro;
 import Vista.VistaAdmin;
+import Vista.VistaAdminEquipo;
+import Vista.VistaAdminLiga;
 import Vista.VistaBase;
 import Vista.VistaPrincipal;
 import Vista.VistaRegistro;
@@ -59,7 +63,12 @@ public class ControladorPrincipal {
                         System.out.println("Bienvenido " + usuario);
                         if (modeloLogin.getUsuario().isAdministrador()) {
                             VistaAdmin vistaAd = new VistaAdmin();
-                            ControladorAdmin controladorAd = new ControladorAdmin(vistaAd, modeloBD);
+                            VistaAdminLiga vistaAL = new VistaAdminLiga();
+                            VistaAdminEquipo vistaAE = new VistaAdminEquipo();
+                            ModeloAdminLiga modeloAL = new ModeloAdminLiga();
+                            ModeloAdminEquipo modeloAE = new ModeloAdminEquipo();
+                            ControladorAdmin controladorAd = new ControladorAdmin(vistaAd, vistaAL, 
+                                    vistaAE, modeloAL, modeloAE, modeloBD);
                         } else {
                             VistaUser vistaUs = new VistaUser();
                             ControladorUser controladorAd = new ControladorUser(vistaUs, modeloBD);

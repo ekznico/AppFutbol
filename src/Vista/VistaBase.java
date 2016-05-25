@@ -25,7 +25,7 @@ public class VistaBase extends JFrame {
         
         this.setSize(250, 250);
         this.setResizable(false);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         tab.add("Ligas", ligas);    
         tab.add("Equipos", equipos);
