@@ -42,20 +42,7 @@ public class ModeloAdminLiga {
                 ligas.add(rs.getString(1));
             }
         }
-        boolean existe = false;
-        ArrayList<String> ligas2 = new ArrayList<String>();
-        for (int i = 0; i < ligas.size(); i++) {
-            for (int j = 0; j < ligas2.size(); j++) {
-                if (ligas.get(i) == ligas2.get(j)) {
-                    existe = true;
-                }
-            }
-            if (!existe) {
-                ligas2.add(ligas.get(i));
-                System.out.println(ligas2.get(i));
-            }
-        }
-        return ligas2;
+        return ligas;
     }
 
     public Liga mostrarLiga(String nombre) throws SQLException, ClassNotFoundException {
@@ -79,6 +66,18 @@ public class ModeloAdminLiga {
             System.out.println("Conectado");
             System.out.println(l.getNombre() + " " + l.getPais());
             String sentenciaSQL = "DELETE FROM ligas WHERE nombre = '" + l.getNombre() + "';";
+            modeloBD.executeQuery(sentenciaSQL);
+        }
+    }
+    
+    public void actualizarLiga(Liga l) throws SQLException, ClassNotFoundException {
+        System.out.println("LIGA");
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            System.out.println(l.getNombre() + " " + l.getPais());
+            String sentenciaSQL = "UPDATE ligas SET  pais = '" + l.getPais() + "'"
+                    + "WHERE nombre = '" + l.getNombre() + "';";
             modeloBD.executeQuery(sentenciaSQL);
         }
     }

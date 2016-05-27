@@ -28,68 +28,57 @@ public class ModeloAdminEquipo {
             modeloBD.executeQuery(sentenciaSQL);
         }
     }
-    
-    public void crearLiga(Liga l) throws SQLException, ClassNotFoundException {
-        System.out.println("LIGA");
-        ModeloConexionBD modeloBD = new ModeloConexionBD();
-        if (modeloBD.abrirConexion()) {
-            System.out.println("Conectado");
-            System.out.println(l.getNombre() + " " + l.getPais());
-            String sentenciaSQL = "INSERT INTO ligas VALUES ('" + l.getNombre() + "', '" + l.getPais() + "');";
-            modeloBD.executeQuery(sentenciaSQL);
-        }
-    }
 
-    public ArrayList<String> listarLigas() throws SQLException, ClassNotFoundException {
+    public ArrayList<String> listarEquipos() throws SQLException, ClassNotFoundException {
         ModeloConexionBD modeloBD = new ModeloConexionBD();
         ResultSet rs = null;
-        ArrayList<String> ligas = new ArrayList<String>();
+        ArrayList<String> equipos = new ArrayList<String>();
         if (modeloBD.abrirConexion()) {
             System.out.println("Conectado");
-            String sentenciaSQL = "SELECT * FROM ligas;";
+            String sentenciaSQL = "SELECT * FROM equipos;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
             boolean existe = false;
             while (rs.next()) {
-                ligas.add(rs.getString(1));
+                equipos.add(rs.getString(1));
             }
         }
-        boolean existe = false;
-        ArrayList<String> ligas2 = new ArrayList<String>();
-        for (int i = 0; i < ligas.size(); i++) {
-            for (int j = 0; j < ligas2.size(); j++) {
-                if (ligas.get(i) == ligas2.get(j)) {
-                    existe = true;
-                }
-            }
-            if (!existe) {
-                ligas2.add(ligas.get(i));
-                System.out.println(ligas2.get(i));
-            }
-        }
-        return ligas2;
+        return equipos;
     }
 
-    public Liga mostrarLiga(String nombre) throws SQLException, ClassNotFoundException {
+    public Equipo mostrarEquipo(String nombre) throws SQLException, ClassNotFoundException {
         ModeloConexionBD modeloBD = new ModeloConexionBD();
         ResultSet rs = null;
         if (modeloBD.abrirConexion()) {
             System.out.println("Conectado Mostrar");
-            String sentenciaSQL = "SELECT * FROM ligas WHERE nombre = '" + nombre + "';";
+            String sentenciaSQL = "SELECT * FROM equipos WHERE nombre = '" + nombre + "';";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
         }
         if (rs.next()) {
-            l = new Liga(rs.getString(1), rs.getString(2));
+            e = new Equipo(rs.getString(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
         }
-        return l;
+        return e;
     }
 
-    public void borrarLiga(Liga l) throws SQLException, ClassNotFoundException {
+    public void borrarEquipo(Equipo e) throws SQLException, ClassNotFoundException {
+        System.out.println("EQUIPO");
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            System.out.println(e.getNombre());
+            String sentenciaSQL = "DELETE FROM equipos WHERE nombre = '" + e.getNombre() + "';";
+            modeloBD.executeQuery(sentenciaSQL);
+        }
+    }
+    
+    public void actualizarEquipo(Equipo e) throws SQLException, ClassNotFoundException {
         System.out.println("LIGA");
         ModeloConexionBD modeloBD = new ModeloConexionBD();
         if (modeloBD.abrirConexion()) {
             System.out.println("Conectado");
-            System.out.println(l.getNombre() + " " + l.getPais());
-            String sentenciaSQL = "DELETE FROM ligas WHERE nombre = '" + l.getNombre() + "';";
+            System.out.println(e.getNombre());
+            String sentenciaSQL = "UPDATE equipos SET  localidad = '" + e.getLocalidad() + "', presupuesto = '" + e.getPresupuesto() + 
+                    "', golesFavor = '" + e.getGolesFavor() + "', golesContra = '" + e.getGolesContra() + "', liga = '" + e.getLiga() + "' "
+                    + "WHERE nombre = '" + e.getNombre() + "';";
             modeloBD.executeQuery(sentenciaSQL);
         }
     }

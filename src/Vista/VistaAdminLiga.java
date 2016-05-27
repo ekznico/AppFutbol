@@ -78,9 +78,7 @@ public class VistaAdminLiga {
         frModificar.setSize(250, 150);
         frModificar.setResizable(false);
         frModificar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        pnlModificar.setLayout(new GridLayout(3, 2));
-        pnlModificar.add(lblNombre);
-        pnlModificar.add(txtNombre);
+        pnlModificar.setLayout(new GridLayout(2, 2));
         pnlModificar.add(lblPais);
         pnlModificar.add(txtPais);
         pnlModificar.add(btnModificarLiga);
