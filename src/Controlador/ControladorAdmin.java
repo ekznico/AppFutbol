@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ControladorAdmin {
     private ModeloAdminLiga modeloAL;
     private ModeloAdminEquipo modeloAE;
 
-    public ControladorAdmin(VistaAdmin vistaAd, VistaAdminLiga vistaAL, VistaAdminEquipo vistaAE, 
+    public ControladorAdmin(VistaAdmin vistaAd, VistaAdminLiga vistaAL, VistaAdminEquipo vistaAE,
             ModeloAdminLiga modeloAL, ModeloAdminEquipo modeloAE, ModeloConexionBD modeloBD) throws SQLException, ClassNotFoundException {
         this.modeloBD = modeloBD;
         this.modeloBD.abrirConexion();
@@ -64,10 +65,18 @@ public class ControladorAdmin {
             case "Crear Liga":
                 vistaAL.crearLiga();
                 break;
-            case "Modificar Liga":
-                vistaAL.modificarLiga();
+            case "Modificar Liga": 
+                vistaAL.getComboBoxLigaMostrar().removeAllItems();
+                for (int i = 0; i < modeloAL.listarLigas().size(); i++) {
+                    vistaAL.setComboBoxLigaMostrar(modeloAL.listarLigas().get(i));
+                }
+                vistaAL.mostrarLiga();
                 break;
             case "Borrar Liga":
+                vistaAL.getComboBoxLigaBorrar().removeAllItems();
+                for (int i = 0; i < modeloAL.listarLigas().size(); i++) {
+                    vistaAL.setComboBoxLigaBorrar(modeloAL.listarLigas().get(i));
+                }
                 vistaAL.borrarLiga();
                 break;
             case "Crear Equipo":
@@ -85,14 +94,34 @@ public class ControladorAdmin {
                 break;
         }
     }
-    
+
     public class VistaLigaListener implements ActionListener {
 
         public void actionPerformed(ActionEvent ae) {
             if (ae.getActionCommand().equals("Crear")) {
-                Liga l = new Liga(vistaAL.getTxtNombre(), vistaAL.getTxtPais());
+                Liga l = new Liga(vistaAL.getTxtNombreCrear(), vistaAL.getTxtPaisCrear());
                 try {
                     modeloAL.crearLiga(l);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (ae.getActionCommand().equals("Mostrar")) {
+                try {
+                    Liga l = modeloAL.mostrarLiga((String) vistaAL.getComboBoxLigaMostrar().getSelectedItem());
+                    vistaAL.setTxtNombre(l.getNombre());
+                    vistaAL.setTxtPais(l.getPais());
+                    vistaAL.modificarLiga();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (ae.getActionCommand().equals("Borrar")) {
+                try {
+                    Liga l = modeloAL.mostrarLiga((String) vistaAL.getComboBoxLigaBorrar().getSelectedItem());
+                    modeloAL.borrarLiga(l);
                 } catch (SQLException ex) {
                     Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {

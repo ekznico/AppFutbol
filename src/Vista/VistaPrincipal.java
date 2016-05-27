@@ -31,7 +31,7 @@ public class VistaPrincipal extends JFrame {
     private static JButton btnLogin;
     
     public VistaPrincipal() {
-        this.setSize(350, 200);
+        this.setSize(250, 150);
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -42,7 +42,7 @@ public class VistaPrincipal extends JFrame {
         lblPassword = new JLabel("Contraseña: ");
         txtUsuario = new JTextField();
         txtPassword = new JPasswordField();
-        btnRegistro = new JButton("¿No tienes cuenta?");
+        btnRegistro = new JButton("Registrarse");
         btnLogin = new JButton("Iniciar sesión");
 
         pnlPrincipal.add(lblUsuario);
