@@ -5,8 +5,8 @@
  */
 package Tabla;
 
+import Modelo.ModeloAdminEquipo;
 import Modelo.ModeloAdminLiga;
-import Modelo.ModeloConexionBD;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
@@ -24,9 +24,9 @@ import javax.swing.table.TableModel;
  *
  * @author Nico
  */
-public class tablaLiga extends JFrame {
-
-    public tablaLiga() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+public class tablaEquipo extends JFrame {
+    
+    public tablaEquipo() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
 
         MyTableModel myModel = new MyTableModel();
         JTable table = new JTable((TableModel) myModel);
@@ -46,11 +46,11 @@ public class tablaLiga extends JFrame {
 
     class MyTableModel extends AbstractTableModel {
 
-        final String[] columnNames = {"Nombre", "País"};
+        final String[] columnNames = {"Nombre", "Localidad", "Presupuesto", "Goles a Favor", "Goles en contra", "Liga"};
         final Object[][] data;
         
         MyTableModel() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
-            this.data = (Object[][]) ModeloAdminLiga.toArrayLiga();
+            this.data = (Object[][]) ModeloAdminEquipo.toArrayEquipos();
         }
 
         //retornamos el numero de elementos del array de datos

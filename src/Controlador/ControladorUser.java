@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.ModeloConexionBD;
+import Tabla.tablaEquipo;
 import Tabla.tablaLiga;
 import Vista.VistaAdmin;
 import Vista.VistaUser;
@@ -53,8 +54,18 @@ public class ControladorUser {
     public void comportamientoBotones(ActionEvent ae) throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
         switch (ae.getActionCommand()) {
             case "Listar Liga":
-                tablaLiga st = new tablaLiga();
-                st.pack();
+                tablaLiga tableL = new tablaLiga();
+                tableL.pack();
+                tableL.setVisible(true);
+                break;
+            case "Listar Equipo":
+                tablaEquipo tableE = new tablaEquipo();
+                tableE.pack();
+                tableE.setVisible(true);
+                break;
+            case "Listar Jugador":
+                tablaJugador tableJ = new tablaJugador();
+                tableJ.pack();
                 st.setVisible(true);
                 break;
         }

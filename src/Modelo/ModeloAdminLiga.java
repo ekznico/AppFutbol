@@ -107,13 +107,13 @@ public class ModeloAdminLiga {
         
         ArrayList<Liga> lLigas = cargarLigas();
         String[] columnNames = {"Nombre", "País"};
-        Object[][] alumnos = new Object[lLigas.size()][columnNames.length];
+        Object[][] ligas = new Object[lLigas.size()][columnNames.length];
         
         for (int i = 0; i < lLigas.size(); i++) {
-            alumnos[i][0] = lLigas.get(i).getNombre();
-            alumnos[i][1] = lLigas.get(i).getPais();
+            ligas[i][0] = lLigas.get(i).getNombre();
+            ligas[i][1] = lLigas.get(i).getPais();
         }
-        return alumnos;
+        return ligas;
     }
     
 }

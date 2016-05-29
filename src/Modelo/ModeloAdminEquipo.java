@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,6 +82,40 @@ public class ModeloAdminEquipo {
                     + "WHERE nombre = '" + e.getNombre() + "';";
             modeloBD.executeQuery(sentenciaSQL);
         }
+    }
+    
+    public static ArrayList<Equipo> cargarEquipos() throws FileNotFoundException, IOException, SQLException, ClassNotFoundException {
+        ArrayList<Equipo> equipos = new ArrayList<>();
+        ResultSet rs = null;
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            String sentenciaSQL = "SELECT * FROM equipos;";
+            rs = modeloBD.ejecutaQuery(sentenciaSQL);
+        }
+        while (rs.next()) {
+            Equipo equipo = new Equipo(rs.getString(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+            equipos.add(equipo);
+        }
+        return equipos;
+    }
+    
+    
+    public static Object toArrayEquipos() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+        
+        ArrayList<Equipo> lEquipos = cargarEquipos();
+        String[] columnNames = {"Nombre", "Localidad", "Presupuesto", "Goles a Favor", "Goles en contra", "Liga"};
+        Object[][] equipos = new Object[lEquipos.size()][columnNames.length];
+        
+        for (int i = 0; i < lEquipos.size(); i++) {
+            equipos[i][0] = lEquipos.get(i).getNombre();
+            equipos[i][1] = lEquipos.get(i).getLocalidad();
+            equipos[i][2] = lEquipos.get(i).getPresupuesto();
+            equipos[i][3] = lEquipos.get(i).getGolesFavor();
+            equipos[i][4] = lEquipos.get(i).getGolesContra();
+            equipos[i][5] = lEquipos.get(i).getLiga();
+        }
+        return equipos;
     }
     
 }
