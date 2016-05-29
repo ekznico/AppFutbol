@@ -5,6 +5,10 @@
  */
 package Modelo;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,6 +84,36 @@ public class ModeloAdminLiga {
                     + "WHERE nombre = '" + l.getNombre() + "';";
             modeloBD.executeQuery(sentenciaSQL);
         }
+    }
+    
+    public static ArrayList<Liga> cargarLigas() throws FileNotFoundException, IOException, SQLException, ClassNotFoundException {
+        ArrayList<Liga> ligas = new ArrayList<>();
+        ResultSet rs = null;
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            String sentenciaSQL = "SELECT * FROM ligas;";
+            rs = modeloBD.ejecutaQuery(sentenciaSQL);
+        }
+        while (rs.next()) {
+            Liga liga = new Liga(rs.getString(1), rs.getString(2));
+            ligas.add(liga);
+        }
+        return ligas;
+    }
+    
+    
+    public static Object toArrayLiga() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+        
+        ArrayList<Liga> lLigas = cargarLigas();
+        String[] columnNames = {"Nombre", "País"};
+        Object[][] alumnos = new Object[lLigas.size()][columnNames.length];
+        
+        for (int i = 0; i < lLigas.size(); i++) {
+            alumnos[i][0] = lLigas.get(i).getNombre();
+            alumnos[i][1] = lLigas.get(i).getPais();
+        }
+        return alumnos;
     }
     
 }

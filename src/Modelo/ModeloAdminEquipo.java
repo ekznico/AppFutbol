@@ -37,7 +37,6 @@ public class ModeloAdminEquipo {
             System.out.println("Conectado");
             String sentenciaSQL = "SELECT * FROM equipos;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
-            boolean existe = false;
             while (rs.next()) {
                 equipos.add(rs.getString(1));
             }

@@ -6,11 +6,16 @@
 package Controlador;
 
 import Modelo.ModeloConexionBD;
+import Tabla.tablaLiga;
 import Vista.VistaAdmin;
 import Vista.VistaUser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,15 +37,25 @@ public class ControladorUser {
     public class VistaUserListener implements ActionListener {
 
         public void actionPerformed(ActionEvent ae) {
-            comportamientoBotones(ae);
+            try {
+                comportamientoBotones(ae);
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ControladorUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
     
-    public void comportamientoBotones(ActionEvent ae) {
+    public void comportamientoBotones(ActionEvent ae) throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
         switch (ae.getActionCommand()) {
-            case "Crear Equipo":
-                System.out.println("ESE PELAO");
+            case "Listar Liga":
+                tablaLiga st = new tablaLiga();
+                st.pack();
+                st.setVisible(true);
                 break;
         }
     }

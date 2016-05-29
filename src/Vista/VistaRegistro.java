@@ -32,6 +32,7 @@ public class VistaRegistro extends JFrame {
     public VistaRegistro() {
         this.setSize(350, 200);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         pnlPrincipal = new JPanel();

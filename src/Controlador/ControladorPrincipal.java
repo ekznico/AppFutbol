@@ -6,12 +6,14 @@
 package Controlador;
 
 import Modelo.ModeloAdminEquipo;
+import Modelo.ModeloAdminJugador;
 import Modelo.ModeloAdminLiga;
 import Modelo.ModeloConexionBD;
 import Modelo.ModeloLogin;
 import Modelo.ModeloRegistro;
 import Vista.VistaAdmin;
 import Vista.VistaAdminEquipo;
+import Vista.VistaAdminJugador;
 import Vista.VistaAdminLiga;
 import Vista.VistaBase;
 import Vista.VistaPrincipal;
@@ -65,13 +67,15 @@ public class ControladorPrincipal {
                             VistaAdmin vistaAd = new VistaAdmin();
                             VistaAdminLiga vistaAL = new VistaAdminLiga();
                             VistaAdminEquipo vistaAE = new VistaAdminEquipo();
+                            VistaAdminJugador vistaAJ = new VistaAdminJugador();
                             ModeloAdminLiga modeloAL = new ModeloAdminLiga();
                             ModeloAdminEquipo modeloAE = new ModeloAdminEquipo();
+                            ModeloAdminJugador modeloAJ = new ModeloAdminJugador();
                             ControladorAdmin controladorAd = new ControladorAdmin(vistaAd, vistaAL, 
-                                    vistaAE, modeloAL, modeloAE, modeloBD);
+                                    vistaAE, vistaAJ, modeloAL, modeloAE, modeloAJ, modeloBD);
                         } else {
                             VistaUser vistaUs = new VistaUser();
-                            ControladorUser controladorAd = new ControladorUser(vistaUs, modeloBD);
+                            ControladorUser controladorUs = new ControladorUser(vistaUs, modeloBD);
                         }
                     } else {
                         vistaPr.mostrarErrores("¡ERROR!, no existe el contacto");

@@ -48,6 +48,7 @@ public class VistaAdminLiga {
         
         frCrear.setSize(250, 150);
         frCrear.setResizable(false);
+        frCrear.setLocationRelativeTo(null);
         frCrear.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlCrear.setLayout(new GridLayout(3, 2));
         pnlCrear.add(lblNombre);
@@ -64,6 +65,7 @@ public class VistaAdminLiga {
         
         frMostrar.setSize(250, 150);
         frMostrar.setResizable(false);
+        frMostrar.setLocationRelativeTo(null);
         frMostrar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlMostrar.setLayout(new GridLayout(2, 2));
         pnlMostrar.add(lblLiga);
@@ -77,6 +79,7 @@ public class VistaAdminLiga {
 
         frModificar.setSize(250, 150);
         frModificar.setResizable(false);
+        frModificar.setLocationRelativeTo(null);
         frModificar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlModificar.setLayout(new GridLayout(2, 2));
         pnlModificar.add(lblPais);
@@ -90,6 +93,7 @@ public class VistaAdminLiga {
         
         frBorrar.setSize(250, 150);
         frBorrar.setResizable(false);
+        frBorrar.setLocationRelativeTo(null);
         frBorrar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlBorrar.setLayout(new GridLayout(2, 2));
         pnlBorrar.add(lblLiga);
@@ -189,6 +193,20 @@ public class VistaAdminLiga {
      */
     public void setComboBoxLigaBorrar(JComboBox comboBoxLigaBorrar) {
         this.comboBoxLigaBorrar = comboBoxLigaBorrar;
+    }
+
+    /**
+     * @param txtNombreCrear the txtNombreCrear to set
+     */
+    public void setTxtNombreCrear(String txtNombreCrear) {
+        this.txtNombreCrear.setText(txtNombreCrear);
+    }
+
+    /**
+     * @param txtPaisCrear the txtPaisCrear to set
+     */
+    public void setTxtPaisCrear(String txtPaisCrear) {
+        this.txtPaisCrear.setText(txtPaisCrear);
     }
     
 }

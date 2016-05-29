@@ -11,12 +11,12 @@ package Modelo;
  */
 public class Equipo {
     
-    protected String nombre;
-    protected String localidad;
-    protected float presupuesto;
-    protected int golesFavor;
-    protected int golesContra;
-    protected String liga;
+    private String nombre;
+    private String localidad;
+    private float presupuesto;
+    private int golesFavor;
+    private int golesContra;
+    private String liga;
 
     public Equipo(String nombre, String localidad, float presupuesto, int golesFavor, int golesContra, String liga) {
         this.nombre = nombre;

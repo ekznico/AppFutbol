@@ -33,6 +33,7 @@ public class VistaPrincipal extends JFrame {
     public VistaPrincipal() {
         this.setSize(250, 150);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         pnlPrincipal = new JPanel();

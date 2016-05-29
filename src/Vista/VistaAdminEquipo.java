@@ -43,13 +43,12 @@ public class VistaAdminEquipo {
     private JTextField txtPresupuestoCrear = new JTextField();
     private JTextField txtGolesFavorCrear = new JTextField();
     private JTextField txtGolesContraCrear = new JTextField();
-    private JTextField txtLigaCrear = new JTextField();
     private JTextField txtNombre = new JTextField();
     private JTextField txtLocalidad = new JTextField();
     private JTextField txtPresupuesto = new JTextField();
     private JTextField txtGolesFavor = new JTextField();
     private JTextField txtGolesContra = new JTextField();
-    private JTextField txtLiga = new JTextField();
+    private JComboBox comboBoxLiga = new JComboBox();
     JButton btnCrearEquipo = new JButton("Crear");
     JButton btnModificarEquipo = new JButton("Modificar");
     JButton btnMostrarEquipo = new JButton("Mostrar");
@@ -57,8 +56,9 @@ public class VistaAdminEquipo {
 
     public void crearEquipo() {
         
-        frCrear.setSize(250, 150);
+        frCrear.setSize(350, 250);
         frCrear.setResizable(false);
+        frCrear.setLocationRelativeTo(null);
         frCrear.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlCrear.setLayout(new GridLayout(7, 2));
         pnlCrear.add(lblNombre);
@@ -72,7 +72,7 @@ public class VistaAdminEquipo {
         pnlCrear.add(lblGolesContra);
         pnlCrear.add(txtGolesContraCrear);
         pnlCrear.add(lblLiga);
-        pnlCrear.add(txtLigaCrear);
+        pnlCrear.add(getComboBoxLiga());
         pnlCrear.add(btnCrearEquipo);
         frCrear.add(pnlCrear);
         frCrear.setVisible(true);
@@ -83,9 +83,10 @@ public class VistaAdminEquipo {
         
         frMostrar.setSize(250, 150);
         frMostrar.setResizable(false);
+        frMostrar.setLocationRelativeTo(null);
         frMostrar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlMostrar.setLayout(new GridLayout(2, 2));
-        pnlMostrar.add(lblLiga);
+        pnlMostrar.add(lblEquipo);
         pnlMostrar.add(getComboBoxEquipoMostrar());
         pnlMostrar.add(btnMostrarEquipo);
         frMostrar.add(pnlMostrar);
@@ -96,6 +97,7 @@ public class VistaAdminEquipo {
 
         frModificar.setSize(350, 250);
         frModificar.setResizable(false);
+        frModificar.setLocationRelativeTo(null);
         frModificar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlModificar.setLayout(new GridLayout(6, 2));
         pnlModificar.add(lblLocalidad);
@@ -107,7 +109,7 @@ public class VistaAdminEquipo {
         pnlModificar.add(lblGolesContra);
         pnlModificar.add(txtGolesContra);
         pnlModificar.add(lblLiga);
-        pnlModificar.add(txtLiga);
+        pnlModificar.add(getComboBoxLiga());
         pnlModificar.add(btnModificarEquipo);
         frModificar.add(pnlModificar);
         frModificar.setVisible(true);
@@ -117,9 +119,10 @@ public class VistaAdminEquipo {
         
         frBorrar.setSize(250, 150);
         frBorrar.setResizable(false);
+        frBorrar.setLocationRelativeTo(null);
         frBorrar.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pnlBorrar.setLayout(new GridLayout(2, 2));
-        pnlBorrar.add(lblLiga);
+        pnlBorrar.add(lblEquipo);
         pnlBorrar.add(getComboBoxEquipoBorrar());
         pnlBorrar.add(btnBorrarEquipo);
         frBorrar.add(pnlBorrar);
@@ -238,6 +241,13 @@ public class VistaAdminEquipo {
     public void setTxtNombre(String txtNombre) {
         this.txtNombre.setText(txtNombre);
     }
+    
+    /**
+     * @param txtNombreCrear the txtNombre to set
+     */
+    public void setTxtNombreCrear(String txtNombre) {
+        this.txtNombreCrear.setText(txtNombre);
+    }
 
     /**
      * @return the txtLocalidad
@@ -258,6 +268,13 @@ public class VistaAdminEquipo {
      */
     public void setTxtLocalidad(String txtLocalidad) {
         this.txtLocalidad.setText(txtLocalidad);
+    }
+    
+    /**
+     * @param txtLocalidadCrear the txtLocalidad to set
+     */
+    public void setTxtLocalidadCrear(String txtLocalidad) {
+        this.txtLocalidadCrear.setText(txtLocalidad);
     }
 
     /**
@@ -280,6 +297,13 @@ public class VistaAdminEquipo {
     public void setTxtPresupuesto(String txtPresupuesto) {
         this.txtPresupuesto.setText(txtPresupuesto);
     }
+    
+    /**
+     * @param txtPresupuestoCrear the txtPresupuesto to set
+     */
+    public void setTxtPresupuestoCrear(String txtPresupuesto) {
+        this.txtPresupuestoCrear.setText(txtPresupuesto);
+    }
 
     /**
      * @return the txtGolesFavor
@@ -300,6 +324,13 @@ public class VistaAdminEquipo {
      */
     public void setTxtGolesFavor(String txtGolesFavor) {
         this.txtGolesFavor.setText(txtGolesFavor);
+    }
+    
+    /**
+     * @param txtGolesFavorCrear the txtGolesFavor to set
+     */
+    public void setTxtGolesFavorCrear(String txtGolesFavor) {
+        this.txtGolesFavorCrear.setText(txtGolesFavor);
     }
 
     /**
@@ -322,26 +353,12 @@ public class VistaAdminEquipo {
     public void setTxtGolesContra(String txtGolesContra) {
         this.txtGolesContra.setText(txtGolesContra);
     }
-
-    /**
-     * @return the txtLiga
-     */
-    public String getTxtLiga() {
-        return txtLiga.getText();
-    }
     
     /**
-     * @return the txtLiga
+     * @param txtGolesContraCrear the txtGolesContra to set
      */
-    public String getTxtLigaCrear() {
-        return txtLigaCrear.getText();
-    }
-
-    /**
-     * @param txtLiga the txtLiga to set
-     */
-    public void setTxtLiga(String txtLiga) {
-        this.txtLiga.setText(txtLiga);
+    public void setTxtGolesContraCrear(String txtGolesContra) {
+        this.txtGolesContraCrear.setText(txtGolesContra);
     }
     
     /**
@@ -362,14 +379,28 @@ public class VistaAdminEquipo {
      * @param comboBoxLiga the comboBoxLiga to set
      */
     public void setComboBoxEquipoBorrar(String c) {
-        this.getComboBoxEquipoMostrar().addItem(c);
+        this.getComboBoxEquipoBorrar().addItem(c);
     }
 
     /**
      * @return the comboBoxLiga
      */
     public JComboBox getComboBoxEquipoBorrar() {
-        return comboBoxEquipoMostrar;
+        return comboBoxEquipoBorrar;
+    }
+
+    /**
+     * @return the comboBoxLiga
+     */
+    public JComboBox getComboBoxLiga() {
+        return comboBoxLiga;
+    }
+
+    /**
+     * @param comboBoxLiga the comboBoxLiga to set
+     */
+    public void setComboBoxLiga(String c) {
+        this.getComboBoxLiga().addItem(c);
     }
     
 }
