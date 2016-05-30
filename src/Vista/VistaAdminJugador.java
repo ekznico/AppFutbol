@@ -7,8 +7,12 @@ package Vista;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -138,6 +142,13 @@ public class VistaAdminJugador {
         frBorrar.add(pnlBorrar);
         frBorrar.setVisible(true);
         
+    }
+    
+    public File importarJugador() throws FileNotFoundException, IOException {
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(file);
+        File abre = file.getSelectedFile();
+        return abre;
     }
     
     public void addVistaJugadorListener(ActionListener listenBoton) {

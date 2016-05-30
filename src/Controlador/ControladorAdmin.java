@@ -18,7 +18,10 @@ import Vista.VistaAdminJugador;
 import Vista.VistaAdminLiga;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -62,12 +65,14 @@ public class ControladorAdmin {
                 Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
     }
 
-    public void comportamientoBotones(ActionEvent ae) throws SQLException, ClassNotFoundException {
+    public void comportamientoBotones(ActionEvent ae) throws SQLException, ClassNotFoundException, IOException {
         vistaAL.addVistaLigaListener((ActionListener) new VistaLigaListener());
         vistaAE.addVistaEquipoListener((ActionListener) new VistaEquipoListener());
         vistaAJ.addVistaJugadorListener((ActionListener) new VistaJugadorListener());
@@ -93,6 +98,9 @@ public class ControladorAdmin {
                 break;
             case "Importar Liga":
                 System.out.println("IMPORTAR LIGA");
+                File ficheroLiga = vistaAL.importarLiga();
+                ArrayList<Liga> ligas = modeloAL.importarLiga(ficheroLiga);
+                modeloAL.insertarLigas(ligas);
                 break;
             case "Exportar Liga":
                 System.out.println("EXPORTAR LIGA");
@@ -125,6 +133,9 @@ public class ControladorAdmin {
                 break;
             case "Importar Equipo":
                 System.out.println("IMPORTAR EQUIPO");
+                File ficheroEquipo = vistaAE.importarEquipo();
+                ArrayList<Equipo> equipos = modeloAE.importarEquipo(ficheroEquipo);
+                modeloAE.insertarEquipos(equipos);
                 break;
             case "Exportar Equipo":
                 System.out.println("EXPORTAR EQUIPO");
@@ -164,6 +175,9 @@ public class ControladorAdmin {
                 break;
             case "Importar Jugador":
                 System.out.println("IMPORTAR JUGADOR");
+                File ficheroJugador = vistaAJ.importarJugador();
+                ArrayList<Jugador> jugadores = modeloAJ.importarJugador(ficheroJugador);
+                modeloAJ.insertarJugadores(jugadores);
                 break;
             case "Exportar Jugador":
                 System.out.println("EXPORTAR JUGADOR");

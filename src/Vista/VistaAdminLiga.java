@@ -5,13 +5,22 @@
  */
 package Vista;
 
+import Modelo.Liga;
 import static Vista.VistaRegistro.btnRegistro;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -21,7 +30,7 @@ import javax.swing.WindowConstants;
  * @author Nico
  */
 public class VistaAdminLiga {
-    
+
     private JFrame frCrear = new JFrame();
     private JFrame frModificar = new JFrame();
     private JFrame frMostrar = new JFrame();
@@ -45,7 +54,7 @@ public class VistaAdminLiga {
     JButton btnBorrarLiga = new JButton("Borrar");
 
     public void crearLiga() {
-        
+
         frCrear.setSize(250, 150);
         frCrear.setResizable(false);
         frCrear.setLocationRelativeTo(null);
@@ -60,9 +69,9 @@ public class VistaAdminLiga {
         frCrear.setVisible(true);
 
     }
-    
+
     public void mostrarLiga() {
-        
+
         frMostrar.setSize(250, 150);
         frMostrar.setResizable(false);
         frMostrar.setLocationRelativeTo(null);
@@ -74,7 +83,7 @@ public class VistaAdminLiga {
         frMostrar.add(pnlMostrar);
         frMostrar.setVisible(true);
     }
-    
+
     public void modificarLiga() {
 
         frModificar.setSize(250, 150);
@@ -88,9 +97,9 @@ public class VistaAdminLiga {
         frModificar.add(pnlModificar);
         frModificar.setVisible(true);
     }
-    
+
     public void borrarLiga() {
-        
+
         frBorrar.setSize(250, 150);
         frBorrar.setResizable(false);
         frBorrar.setLocationRelativeTo(null);
@@ -101,23 +110,30 @@ public class VistaAdminLiga {
         pnlBorrar.add(btnBorrarLiga);
         frBorrar.add(pnlBorrar);
         frBorrar.setVisible(true);
-        
+
     }
-    
+
+    public File importarLiga() throws FileNotFoundException, IOException {
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(file);
+        File abre = file.getSelectedFile();
+        return abre;
+    }
+
     public void addVistaLigaListener(ActionListener listenBoton) {
         btnCrearLiga.addActionListener(listenBoton);
         btnModificarLiga.addActionListener(listenBoton);
         btnMostrarLiga.addActionListener(listenBoton);
         btnBorrarLiga.addActionListener(listenBoton);
     }
-    
+
     /**
      * @return the txtNombre
      */
     public String getTxtNombre() {
         return txtNombre.getText();
     }
-    
+
     /**
      * @param txtNombre the txtNombre to set
      */
@@ -145,14 +161,14 @@ public class VistaAdminLiga {
     public String getTxtNombreCrear() {
         return txtNombreCrear.getText();
     }
-    
+
     /**
      * @return the txtPais
      */
     public String getTxtPaisCrear() {
         return txtPaisCrear.getText();
     }
-    
+
     /**
      * @param comboBoxLiga the comboBoxLiga to set
      */
@@ -166,7 +182,7 @@ public class VistaAdminLiga {
     public JComboBox getComboBoxLigaMostrar() {
         return comboBoxLigaMostrar;
     }
-    
+
     /**
      * @param comboBoxLiga the comboBoxLiga to set
      */
@@ -187,7 +203,7 @@ public class VistaAdminLiga {
     public void setComboBoxLigaMostrar(JComboBox comboBoxLigaMostrar) {
         this.comboBoxLigaMostrar = comboBoxLigaMostrar;
     }
-    
+
     /**
      * @param comboBoxLigaMostrar the comboBoxLigaMostrar to set
      */
@@ -208,7 +224,5 @@ public class VistaAdminLiga {
     public void setTxtPaisCrear(String txtPaisCrear) {
         this.txtPaisCrear.setText(txtPaisCrear);
     }
-    
-}
-    
 
+}

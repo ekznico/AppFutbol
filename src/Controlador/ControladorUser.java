@@ -7,6 +7,7 @@ package Controlador;
 
 import Modelo.ModeloConexionBD;
 import Tabla.tablaEquipo;
+import Tabla.tablaJugador;
 import Tabla.tablaLiga;
 import Vista.VistaAdmin;
 import Vista.VistaUser;
@@ -66,7 +67,7 @@ public class ControladorUser {
             case "Listar Jugador":
                 tablaJugador tableJ = new tablaJugador();
                 tableJ.pack();
-                st.setVisible(true);
+                tableJ.setVisible(true);
                 break;
         }
     }

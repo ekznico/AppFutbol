@@ -5,6 +5,11 @@
  */
 package Modelo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -92,6 +97,44 @@ public class ModeloAdminJugador {
             String sentenciaSQL = "UPDATE jugadores SET  nombre = '" + j.getNombre() + "', dorsal = '" + j.getDorsal() + 
                     "', valor = '" + j.getValor() + "' WHERE dni = '" + j.getDni() + "';";
             modeloBD.executeQuery(sentenciaSQL);
+        }
+    }
+    
+    public ArrayList<Jugador> importarJugador(File fichero) throws FileNotFoundException, IOException {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        try {
+            String cadena = "";
+
+            if (fichero != null) {
+                FileReader archivos = new FileReader(fichero);
+                BufferedReader lee = new BufferedReader(archivos);
+                while ((cadena = lee.readLine()) != null) {
+                    String[] inforJugador = cadena.split(":");
+                    Jugador j = new Jugador(inforJugador[0], inforJugador[1], inforJugador[2], 
+                            Integer.parseInt(inforJugador[3]), inforJugador[4]);
+                    jugadores.add(j);
+                }
+                lee.close();
+            }
+        } catch (IOException ex) {
+
+        }
+        return jugadores;
+    }
+
+    public void insertarJugadores(ArrayList<Jugador> jugadores) throws SQLException, ClassNotFoundException {
+        System.out.println("JUGADORES");
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            for (int i = 0; i < jugadores.size(); i++) {
+                String sentenciaSQL = "INSERT INTO jugadores VALUES  ('" + jugadores.get(i).getDni() + "', '" + 
+                        jugadores.get(i).getNombre() + "', '" + jugadores.get(i).getDorsal() +
+                        "', '" + jugadores.get(i).getValor() +"', '" + jugadores.get(i).getEquipo() +
+                        "');";
+                modeloBD.executeQuery(sentenciaSQL);
+            }
+
         }
     }
     

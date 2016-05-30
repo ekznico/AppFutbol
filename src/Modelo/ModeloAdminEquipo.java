@@ -5,7 +5,10 @@
  */
 package Modelo;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,6 +119,44 @@ public class ModeloAdminEquipo {
             equipos[i][5] = lEquipos.get(i).getLiga();
         }
         return equipos;
+    }
+    
+    public ArrayList<Equipo> importarEquipo(File fichero) throws FileNotFoundException, IOException {
+        ArrayList<Equipo> equipos = new ArrayList<>();
+        try {
+            String cadena = "";
+
+            if (fichero != null) {
+                FileReader archivos = new FileReader(fichero);
+                BufferedReader lee = new BufferedReader(archivos);
+                while ((cadena = lee.readLine()) != null) {
+                    String[] inforEquipo = cadena.split(":");
+                    Equipo e = new Equipo(inforEquipo[0], inforEquipo[1], Float.parseFloat(inforEquipo[2]), 
+                            Integer.parseInt(inforEquipo[3]), Integer.parseInt(inforEquipo[4]), inforEquipo[5]);
+                    equipos.add(e);
+                }
+                lee.close();
+            }
+        } catch (IOException ex) {
+
+        }
+        return equipos;
+    }
+
+    public void insertarEquipos(ArrayList<Equipo> equipos) throws SQLException, ClassNotFoundException {
+        System.out.println("EQUIPOS");
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            for (int i = 0; i < equipos.size(); i++) {
+                String sentenciaSQL = "INSERT INTO equipos VALUES  ('" + equipos.get(i).getNombre() + "', '" + 
+                        equipos.get(i).getLocalidad() + "', '" + equipos.get(i).getPresupuesto() +
+                        "', '" + equipos.get(i).getGolesFavor() +"', '" + equipos.get(i).getGolesContra() +
+                        "', '" + equipos.get(i).getLiga() +"');";
+                modeloBD.executeQuery(sentenciaSQL);
+            }
+
+        }
     }
     
 }

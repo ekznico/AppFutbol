@@ -33,8 +33,6 @@ public class VistaAdmin extends VistaBase {
     private JButton exportarJugador;
     
     public VistaAdmin() {
-
-        super();
         
         crearLiga = new JButton("Crear Liga");
         modificarLiga = new JButton("Modificar Liga");

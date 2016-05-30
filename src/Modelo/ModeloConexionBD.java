@@ -51,6 +51,14 @@ public class ModeloConexionBD {
         return estado;
     } 
     
+    public void cerrarConexion() {
+        try {
+            conexion.close();
+        } catch (SQLException e) {
+            
+        }
+    }
+    
     public ResultSet ejecutaQuery(String sentenciaSQL) {
         ResultSet rs = null;
         
@@ -72,9 +80,8 @@ public class ModeloConexionBD {
         }
     }
     
-    public String[] devolverStringResultSet(String sentenciaSQL) throws SQLException {
-        String cadena = "";
-        ResultSet rs = ejecutaQuery(sentenciaSQL);
+    public String[] devolverStringColumna(String tabla) throws SQLException {
+        ResultSet rs = ejecutaQuery("SELECT * FROM " + tabla + ";");
         ResultSetMetaData metaDatos = rs.getMetaData();
         int numColumnas = metaDatos.getColumnCount();
         String[] columnas = new String[numColumnas];

@@ -6,13 +6,18 @@
 package Modelo;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
+
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import java.io.File;
 
 /**
  *
@@ -73,7 +78,7 @@ public class ModeloAdminLiga {
             modeloBD.executeQuery(sentenciaSQL);
         }
     }
-    
+
     public void actualizarLiga(Liga l) throws SQLException, ClassNotFoundException {
         System.out.println("LIGA");
         ModeloConexionBD modeloBD = new ModeloConexionBD();
@@ -85,7 +90,7 @@ public class ModeloAdminLiga {
             modeloBD.executeQuery(sentenciaSQL);
         }
     }
-    
+
     public static ArrayList<Liga> cargarLigas() throws FileNotFoundException, IOException, SQLException, ClassNotFoundException {
         ArrayList<Liga> ligas = new ArrayList<>();
         ResultSet rs = null;
@@ -101,20 +106,56 @@ public class ModeloAdminLiga {
         }
         return ligas;
     }
-    
-    
+
     public static Object toArrayLiga() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
-        
+
         ArrayList<Liga> lLigas = cargarLigas();
         String[] columnNames = {"Nombre", "País"};
         Object[][] ligas = new Object[lLigas.size()][columnNames.length];
-        
+
         for (int i = 0; i < lLigas.size(); i++) {
             ligas[i][0] = lLigas.get(i).getNombre();
             ligas[i][1] = lLigas.get(i).getPais();
         }
         return ligas;
     }
-    
-}
 
+    public ArrayList<Liga> importarLiga(File fichero) throws FileNotFoundException, IOException {
+        ArrayList<Liga> ligas = new ArrayList<>();
+        try {
+            String cadena = "";
+
+            if (fichero != null) {
+                FileReader archivos = new FileReader(fichero);
+                BufferedReader lee = new BufferedReader(archivos);
+                while ((cadena = lee.readLine()) != null) {
+                    String[] inforLiga = cadena.split(":");
+                    Liga l = new Liga(inforLiga[0], inforLiga[1]);
+                    ligas.add(l);
+                }
+                lee.close();
+            }
+        } catch (IOException ex) {
+
+        }
+        return ligas;
+    }
+
+    public void insertarLigas(ArrayList<Liga> ligas) throws SQLException, ClassNotFoundException {
+        System.out.println("LIGAS");
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            for (int i = 0; i < ligas.size(); i++) {
+                String sentenciaSQL = "INSERT INTO ligas VALUES  ('" + ligas.get(i).getNombre() + "', '" + ligas.get(i).getPais() + "');";
+                modeloBD.executeQuery(sentenciaSQL);
+            }
+
+        }
+    }
+    
+    public void exportarLiga() {
+       
+    }
+
+}

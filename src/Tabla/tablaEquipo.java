@@ -7,6 +7,7 @@ package Tabla;
 
 import Modelo.ModeloAdminEquipo;
 import Modelo.ModeloAdminLiga;
+import Modelo.ModeloConexionBD;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
@@ -36,20 +37,23 @@ public class tablaEquipo extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         //agregamos nuestra tabla al contenedor
         getContentPane().add(scrollPane, BorderLayout.CENTER);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                System.exit(0);
+                dispose();
             }
         });
     }
 
     class MyTableModel extends AbstractTableModel {
 
-        final String[] columnNames = {"Nombre", "Localidad", "Presupuesto", "Goles a Favor", "Goles en contra", "Liga"};
+        final String[] columnNames;
         final Object[][] data;
         
         MyTableModel() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+            ModeloConexionBD modeloBD = new ModeloConexionBD();
+            this.columnNames = modeloBD.devolverStringColumna("equipos");
             this.data = (Object[][]) ModeloAdminEquipo.toArrayEquipos();
         }
 

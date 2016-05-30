@@ -21,7 +21,6 @@ public class VistaUser extends VistaBase {
     
     public VistaUser() {
 
-        super();
         listarLiga = new JButton("Listar Liga");
         super.ligas.setLayout(new GridLayout(1, 1));
         super.ligas.add(listarLiga);
