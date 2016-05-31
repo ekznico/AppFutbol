@@ -8,6 +8,7 @@ package Modelo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -64,7 +65,7 @@ public class ModeloJugadorXML {
                 jugador.appendChild(valor);
 
                 Element equipo = doc.createElement("equipo");
-                equipo.appendChild(doc.createTextNode(String.valueOf(jugadores.get(i).getEquipo())));
+                equipo.appendChild(doc.createTextNode(jugadores.get(i).getEquipo()));
                 jugador.appendChild(equipo);
 
             }

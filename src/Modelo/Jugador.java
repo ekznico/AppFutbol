@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.sql.Date;
+
 /**
  *
  * @author Nico
@@ -17,7 +19,8 @@ public class Jugador {
     private int valor;
     private String equipo;
 
-    public Jugador(String dni, String nombre, String dorsal, int valor, String equipo) {
+    public Jugador(String dni, String nombre, String dorsal, int valor, 
+            String equipo) {
         this.dni = dni;
         this.nombre = nombre;
         this.dorsal = dorsal;
