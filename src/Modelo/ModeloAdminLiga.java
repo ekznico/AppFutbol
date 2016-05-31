@@ -43,7 +43,6 @@ public class ModeloAdminLiga {
         ResultSet rs = null;
         ArrayList<String> ligas = new ArrayList<String>();
         if (modeloBD.abrirConexion()) {
-            System.out.println("Conectado");
             String sentenciaSQL = "SELECT * FROM ligas;";
             rs = modeloBD.ejecutaQuery(sentenciaSQL);
             boolean existe = false;
@@ -107,10 +106,10 @@ public class ModeloAdminLiga {
         return ligas;
     }
 
-    public static Object toArrayLiga() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+    public static Object toArrayLiga(String[] columnas) throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
 
         ArrayList<Liga> lLigas = cargarLigas();
-        String[] columnNames = {"Nombre", "País"};
+        String[] columnNames = columnas;
         Object[][] ligas = new Object[lLigas.size()][columnNames.length];
 
         for (int i = 0; i < lLigas.size(); i++) {

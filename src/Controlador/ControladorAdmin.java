@@ -12,6 +12,9 @@ import Modelo.ModeloAdminEquipo;
 import Modelo.ModeloAdminJugador;
 import Modelo.ModeloAdminLiga;
 import Modelo.ModeloConexionBD;
+import Modelo.ModeloEquipoXML;
+import Modelo.ModeloJugadorXML;
+import Modelo.ModeloLigaXML;
 import Vista.VistaAdmin;
 import Vista.VistaAdminEquipo;
 import Vista.VistaAdminJugador;
@@ -19,12 +22,15 @@ import Vista.VistaAdminLiga;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -67,12 +73,14 @@ public class ControladorAdmin {
                 Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ControladorAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
             }
         }
 
     }
 
-    public void comportamientoBotones(ActionEvent ae) throws SQLException, ClassNotFoundException, IOException {
+    public void comportamientoBotones(ActionEvent ae) throws SQLException, ClassNotFoundException, IOException, FileNotFoundException, ParserConfigurationException {
         vistaAL.addVistaLigaListener((ActionListener) new VistaLigaListener());
         vistaAE.addVistaEquipoListener((ActionListener) new VistaEquipoListener());
         vistaAJ.addVistaJugadorListener((ActionListener) new VistaJugadorListener());
@@ -103,7 +111,13 @@ public class ControladorAdmin {
                 modeloAL.insertarLigas(ligas);
                 break;
             case "Exportar Liga":
-                System.out.println("EXPORTAR LIGA");
+                try {
+                    System.out.println("EXPORTAR LIGA");
+                    ModeloLigaXML modeloLX = new ModeloLigaXML();
+                    modeloLX.crearXML();
+                }  catch (TransformerException tfe) {
+			tfe.printStackTrace();
+                }
                 break;
             case "Crear Equipo":
                 vistaAE.setTxtNombreCrear("");
@@ -138,7 +152,13 @@ public class ControladorAdmin {
                 modeloAE.insertarEquipos(equipos);
                 break;
             case "Exportar Equipo":
-                System.out.println("EXPORTAR EQUIPO");
+                try {
+                    System.out.println("EXPORTAR EQUIPO");
+                    ModeloEquipoXML modeloEX = new ModeloEquipoXML();
+                    modeloEX.crearXML();
+                }  catch (TransformerException tfe) {
+			tfe.printStackTrace();
+                }
                 break;
             case "Crear Jugador":
                 vistaAJ.setTxtDniCrear("");
@@ -180,7 +200,13 @@ public class ControladorAdmin {
                 modeloAJ.insertarJugadores(jugadores);
                 break;
             case "Exportar Jugador":
-                System.out.println("EXPORTAR JUGADOR");
+                try {
+                    System.out.println("EXPORTAR JUGADOR");
+                    ModeloJugadorXML modeloJX = new ModeloJugadorXML();
+                    modeloJX.crearXML();
+                }  catch (TransformerException tfe) {
+			tfe.printStackTrace();
+                }
                 break;
         }
     }

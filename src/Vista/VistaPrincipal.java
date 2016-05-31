@@ -5,8 +5,11 @@
  */
 package Vista;
 
+import Modelo.ModeloConexionBD;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,6 +58,13 @@ public class VistaPrincipal extends JFrame {
         this.add(pnlPrincipal);
         
         this.setVisible(true);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                ModeloConexionBD.cerrarConexion();
+            }
+        });
+        
     }
     
     public String getUsuario() {

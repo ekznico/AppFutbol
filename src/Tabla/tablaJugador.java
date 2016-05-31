@@ -6,6 +6,7 @@
 package Tabla;
 
 import Modelo.ModeloAdminEquipo;
+import Modelo.ModeloAdminJugador;
 import Modelo.ModeloConexionBD;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -29,9 +31,11 @@ public class tablaJugador extends JFrame {
     public tablaJugador() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
 
         MyTableModel myModel = new MyTableModel();
+        //TableRowSorter sorter = new TableRowSorter();
         JTable table = new JTable((TableModel) myModel);
         //ajusta el tamaño de la tabla
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        //table.setRowSorter(sorter);
         //creamos un contenedor para la tabla
         JScrollPane scrollPane = new JScrollPane(table);
         //agregamos nuestra tabla al contenedor
@@ -52,7 +56,7 @@ public class tablaJugador extends JFrame {
         MyTableModel() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
             ModeloConexionBD modeloBD = new ModeloConexionBD();
             this.columnNames = modeloBD.devolverStringColumna("jugadores");
-            this.data = (Object[][]) ModeloAdminEquipo.toArrayEquipos();
+            this.data = (Object[][]) ModeloAdminJugador.toArrayJugadores(modeloBD.devolverStringColumna("jugadores"));
         }
 
         //retornamos el numero de elementos del array de datos

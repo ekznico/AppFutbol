@@ -109,7 +109,6 @@ public class ControladorPrincipal {
                         vistaReg.setVisible(false);
                     } else {
                         modeloReg.setRegistroCorrecto(true);
-                        vistaPr.mostrarErrores("¡ERROR!, ya existe un contacto este nombre");
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);

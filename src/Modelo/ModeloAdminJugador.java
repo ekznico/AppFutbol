@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import static Modelo.ModeloAdminEquipo.cargarEquipos;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -98,6 +99,38 @@ public class ModeloAdminJugador {
                     "', valor = '" + j.getValor() + "' WHERE dni = '" + j.getDni() + "';";
             modeloBD.executeQuery(sentenciaSQL);
         }
+    }
+    
+    public static ArrayList<Jugador> cargarJugadores() throws FileNotFoundException, IOException, SQLException, ClassNotFoundException {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        ResultSet rs = null;
+        ModeloConexionBD modeloBD = new ModeloConexionBD();
+        if (modeloBD.abrirConexion()) {
+            System.out.println("Conectado");
+            String sentenciaSQL = "SELECT * FROM jugadores;";
+            rs = modeloBD.ejecutaQuery(sentenciaSQL);
+        }
+        while (rs.next()) {
+            Jugador jugador = new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+            jugadores.add(jugador);
+        }
+        return jugadores;
+    }
+    
+    public static Object toArrayJugadores(String[] columnas) throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+        
+        ArrayList<Jugador> lJugadores = cargarJugadores();
+        String[] columnNames = columnas;
+        Object[][] jugadores = new Object[lJugadores.size()][columnNames.length];
+        
+        for (int i = 0; i < lJugadores.size(); i++) {
+            jugadores[i][0] = lJugadores.get(i).getDni();
+            jugadores[i][1] = lJugadores.get(i).getNombre();
+            jugadores[i][2] = lJugadores.get(i).getDorsal();
+            jugadores[i][3] = lJugadores.get(i).getValor();
+            jugadores[i][4] = lJugadores.get(i).getEquipo();
+        }
+        return jugadores;
     }
     
     public ArrayList<Jugador> importarJugador(File fichero) throws FileNotFoundException, IOException {

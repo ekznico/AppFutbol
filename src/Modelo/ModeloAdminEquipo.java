@@ -104,10 +104,11 @@ public class ModeloAdminEquipo {
     }
     
     
-    public static Object toArrayEquipos() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
+    public static Object toArrayEquipos(String[] columnas) throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
         
         ArrayList<Equipo> lEquipos = cargarEquipos();
-        String[] columnNames = {"Nombre", "Localidad", "Presupuesto", "Goles a Favor", "Goles en contra", "Liga"};
+        System.out.println(lEquipos.get(0).getNombre());
+        String[] columnNames = columnas;
         Object[][] equipos = new Object[lEquipos.size()][columnNames.length];
         
         for (int i = 0; i < lEquipos.size(); i++) {

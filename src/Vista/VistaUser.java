@@ -16,6 +16,7 @@ import javax.swing.JButton;
 public class VistaUser extends VistaBase {
     
     private JButton listarLiga;
+    private JButton filtrarLiga;
     private JButton listarEquipo;
     private JButton listarJugador;
     

@@ -60,7 +60,7 @@ public class VistaAdmin extends VistaBase {
         
         altaJugador = new JButton("Crear Jugador");
         modificarJugador = new JButton("Modificar Jugador");
-        bajaJugador = new JButton("Baja Jugador");
+        bajaJugador = new JButton("Borrar Jugador");
         ventaJugador = new JButton("Venta Jugador");
         importarJugador = new JButton("Importar Jugador");
         exportarJugador = new JButton("Exportar Jugador");

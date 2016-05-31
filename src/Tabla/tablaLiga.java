@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -29,9 +30,11 @@ public class tablaLiga extends JFrame {
     public tablaLiga() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
 
         MyTableModel myModel = new MyTableModel();
+        TableRowSorter sorter = new TableRowSorter(myModel);
         JTable table = new JTable((TableModel) myModel);
         //ajusta el tamaño de la tabla
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table.setRowSorter(sorter);
         //creamos un contenedor para la tabla
         JScrollPane scrollPane = new JScrollPane(table);
         //agregamos nuestra tabla al contenedor
@@ -52,7 +55,7 @@ public class tablaLiga extends JFrame {
         MyTableModel() throws IOException, FileNotFoundException, SQLException, ClassNotFoundException {
             ModeloConexionBD modeloBD = new ModeloConexionBD();
             this.columnNames = modeloBD.devolverStringColumna("ligas");
-            this.data = (Object[][]) ModeloAdminLiga.toArrayLiga();
+            this.data = (Object[][]) ModeloAdminLiga.toArrayLiga(modeloBD.devolverStringColumna("ligas"));
         }
 
         //retornamos el numero de elementos del array de datos

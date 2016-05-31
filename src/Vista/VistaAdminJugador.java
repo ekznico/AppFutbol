@@ -33,7 +33,7 @@ public class VistaAdminJugador {
     private JPanel pnlMostrar = new JPanel();
     private JPanel pnlModificar = new JPanel();
     private JPanel pnlBorrar = new JPanel();
-    private JLabel lblJugador = new JLabel("ELIGE UN EQUIPO");
+    private JLabel lblJugador = new JLabel("ELIGE UN JUGADOR");
     private JComboBox comboBoxJugadorMostrar = new JComboBox();
     private JComboBox comboBoxJugadorBorrar = new JComboBox();
     private JComboBox comboBoxJugadorVender = new JComboBox();

@@ -51,9 +51,10 @@ public class ModeloConexionBD {
         return estado;
     } 
     
-    public void cerrarConexion() {
+    public static void cerrarConexion() {
         try {
             conexion.close();
+            System.out.println("Conexión con la BBDD cerrada");
         } catch (SQLException e) {
             
         }
